@@ -116,6 +116,12 @@ NOISE_DEFAULTS = {
     "seed": 0,
 }
 
+# Optional profile keys: read only when a profile sets them, so every other profile builds (and records) what it did.
+# BAR-ATH's tracker output has almost no motion above ~0.7 Hz, players and ball alike (measured without labels on its
+# velocity spectra), while DFL's keeps it up to ~3 Hz. *_lowpass_hz > 0 passes the source players / ball through a
+# zero-phase Butterworth low-pass of lowpass_order at that cut-off (_lowpass), after the Gaussian smoothing above.
+NOISE_OPTIONAL = {"ball_lowpass_hz": 0.0, "player_lowpass_hz": 0.0, "lowpass_order": 6}
+
 
 # ============================================================================ clean match
 class Match:
@@ -439,6 +445,25 @@ def _nan_smooth(x, sigma):
         return np.where(ok, num / den, np.nan)
 
 
+def _lowpass(x, cutoff_hz, order):
+    """Zero-phase Butterworth low-pass over time (axis 0), each finite run of each coordinate on its own; runs too
+    short for the filter's padding are left as they are. cutoff_hz <= 0: x unchanged."""
+    if not cutoff_hz or cutoff_hz <= 0:
+        return x
+    from scipy import signal
+    sos = signal.butter(int(order), cutoff_hz, fs=FPS, output="sos")
+    out = np.array(x, dtype=float, copy=True)
+    flat = out.reshape(len(out), -1)
+    short = 6 * (2 * len(sos) + 1)
+    for j in range(flat.shape[1]):
+        ok = np.isfinite(flat[:, j])
+        edges = np.diff(np.concatenate(([0], ok.astype(np.int8), [0])))
+        for a, b in zip(np.flatnonzero(edges == 1), np.flatnonzero(edges == -1)):
+            if b - a > short:
+                flat[a:b, j] = signal.sosfiltfilt(sos, flat[a:b, j])
+    return out
+
+
 def _drift(rng, shape, sd, tau_s):
     """Smooth random position error: white noise filtered over tau_s, rescaled to std sd."""
     tau = max(tau_s * FPS, 1e-9)
@@ -546,6 +571,9 @@ def degrade(m, prof):
     unfrozen, n_unfrozen = _unfreeze(m.ball, np.concatenate([m.home, m.away], axis=1))
     players = _nan_smooth(np.concatenate([m.home, m.away], axis=1), prof["player_smooth_frames"])
     source_ball = _nan_smooth(unfrozen, prof["ball_smooth_frames"])
+    order = prof.get("lowpass_order", NOISE_OPTIONAL["lowpass_order"])
+    players = _lowpass(players, prof.get("player_lowpass_hz", 0.0), order)       # BAR-ATH-like tracker output
+    source_ball = _lowpass(source_ball, prof.get("ball_lowpass_hz", 0.0), order)
     team = np.array([0] * m.home.shape[1] + [1] * m.away.shape[1])
 
     # --- ball: bursty dropout, likelier in crowds and on fast balls
@@ -779,7 +807,7 @@ def write_raw(path, ball, pos, pitch):
 def build(args):
     prof = dict(NOISE_DEFAULTS)
     if args.profile:
-        prof.update({k: v for k, v in json.loads(Path(args.profile).read_text()).items() if k in prof})
+        prof.update({k: v for k, v in json.loads(Path(args.profile).read_text()).items() if k in prof or k in NOISE_OPTIONAL})
     if args.seed is not None:
         prof["seed"] = args.seed
     out = Path(args.out)

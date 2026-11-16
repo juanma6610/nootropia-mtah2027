@@ -1,7 +1,8 @@
 """Train ballnet (possession/ballnet.py): python nootropia/training/train_ballnet.py [--only GAME|ALL ...] [--dfl-dir DIR]
 
 1. Leave one DFL game out (7 nets): each net is trained on the other six games x 3 noise copies and writes ballnet's
-   columns for the held-out game's three copies to common.LOO_DIR. The ownership BiGRU trains on those
+   columns for the held-out game's copies to common.LOO_DIR: those three and the ownership BiGRU's low-passed ones
+   (common.lowpass_dirs(), build_benchmark.py --lowpass, built first). The ownership BiGRU trains on those
    (benchmark.ownership_inputs), so no game's columns come from a net that saw it.
 2. Fit on all seven: models/ballnet.pt and its provenance record models/ballnet.json.
 
@@ -49,7 +50,7 @@ if __name__ == '__main__':
         path = os.path.join(common.LOO_DIR, "net_{}.pt".format(held))
         net = ballnet.load(path) if os.path.isfile(path) else train(held, games)
         ballnet_fit.save(net, path)
-        for d in common.copies():
+        for d in common.copies() + common.lowpass_dirs():
             x, y, teams, ball, pitch = benchmark.copy_arrays(held, d)
             columns, _ = ballnet.frame_features(net, x, y, teams, ball, pitch)
             columns.to_pickle(os.path.join(common.LOO_DIR, "feat_{}_{}.pkl".format(os.path.basename(os.path.normpath(d)), held)))

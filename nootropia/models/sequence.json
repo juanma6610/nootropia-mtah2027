@@ -1,21 +1,12 @@
 {
   "model_file": "sequence.pt",
-  "sha256_12": "78dd53c2c507",
+  "sha256_12": "0a74e5c3e4dc",
   "train_command": "python nootropia/training/train_ownership.py",
   "seed": 0,
   "noise_seeds": [
     1,
     2
   ],
-  "benchmark_build": {
-    "DFL-J03WMX": "dc83a461",
-    "DFL-J03WN1": "b5a9386e",
-    "DFL-J03WOH": "5906cef1",
-    "DFL-J03WOY": "3c54cd91",
-    "DFL-J03WPY": "bd6e5957",
-    "DFL-J03WQQ": "fb9115b1",
-    "DFL-J03WR9": "422b7da8"
-  },
   "config": {
     "step": 5,
     "window": 50,
@@ -28,6 +19,49 @@
     "seed": 0,
     "target": "home"
   },
-  "decoder_tuned_on": "78dd53c2c507",
-  "date": "2026-11-03"
+  "train_dirs": [
+    "benchmark_lp",
+    "benchmark_lp_s1",
+    "benchmark_lp_s2"
+  ],
+  "train_build": {
+    "benchmark_lp": {
+      "DFL-J03WMX": "ab8862a5",
+      "DFL-J03WN1": "e7e19392",
+      "DFL-J03WOH": "7d081858",
+      "DFL-J03WOY": "bf8ee579",
+      "DFL-J03WPY": "64bd861d",
+      "DFL-J03WQQ": "b4f2e155",
+      "DFL-J03WR9": "7082e547"
+    },
+    "benchmark_lp_s1": {
+      "DFL-J03WMX": "0fa0099e",
+      "DFL-J03WN1": "6db3008e",
+      "DFL-J03WOH": "3aabd724",
+      "DFL-J03WOY": "f9aac0fb",
+      "DFL-J03WPY": "8a1141c2",
+      "DFL-J03WQQ": "f1342205",
+      "DFL-J03WR9": "cdcb3b39"
+    },
+    "benchmark_lp_s2": {
+      "DFL-J03WMX": "33a31959",
+      "DFL-J03WN1": "0478d817",
+      "DFL-J03WOH": "100604f7",
+      "DFL-J03WOY": "40ce3226",
+      "DFL-J03WPY": "898d285a",
+      "DFL-J03WQQ": "b2faba5f",
+      "DFL-J03WR9": "34640f9d"
+    }
+  },
+  "benchmark_build": {
+    "DFL-J03WMX": "dc83a461",
+    "DFL-J03WN1": "b5a9386e",
+    "DFL-J03WOH": "5906cef1",
+    "DFL-J03WOY": "3c54cd91",
+    "DFL-J03WPY": "bd6e5957",
+    "DFL-J03WQQ": "fb9115b1",
+    "DFL-J03WR9": "422b7da8"
+  },
+  "date": "2026-11-17",
+  "decoder_tuned_on": "0a74e5c3e4dc"
 }

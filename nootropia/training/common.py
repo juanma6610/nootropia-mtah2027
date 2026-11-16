@@ -23,6 +23,9 @@ MODELS_DIR = os.path.join(TEAM_DIR, "models")
 BOXDEAD_DIR = os.path.join(OUTPUTS_DIR, "benchmark_boxdead")   # the dead-ball BiGRU's copies (build_benchmark.py --boxdead)
 
 
+LOWPASS_DIR = os.path.join(OUTPUTS_DIR, "benchmark_lp")        # the ownership BiGRU's copies (build_benchmark.py --lowpass)
+
+
 def noise_dir(seed):
     return os.path.join(OUTPUTS_DIR, "benchmark_s{}".format(seed))
 
@@ -30,6 +33,15 @@ def noise_dir(seed):
 def boxdead_dir(seed):
     """The dead-ball BiGRU's copy for a noise seed: keeper holds hidden and slowed (live), box stoppages hidden (dead)."""
     return BOXDEAD_DIR if seed == 0 else "{}_s{}".format(BOXDEAD_DIR, seed)
+
+
+def lowpass_dir(seed):
+    """The ownership BiGRU's copy for a noise seed: players and ball low-passed like BAR-ATH's tracker output."""
+    return LOWPASS_DIR if seed == 0 else "{}_s{}".format(LOWPASS_DIR, seed)
+
+
+def lowpass_dirs():
+    return [lowpass_dir(s) for s in (0, *NOISE_SEEDS)]
 
 
 def copies():

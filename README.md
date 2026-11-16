@@ -40,7 +40,9 @@ to rebuild from the raw files.
 
 The networks in `nootropia/models/` were trained on public data only: the seven matches of the DFL
 open dataset (Bassek et al. 2025, CC-BY 4.0; labels from the tracking's own ball-status and
-possession flags), degraded to look like automatic tracking. Every step is seeded and deterministic on CPU, and each training script prints whether the
+possession flags), degraded to look like automatic tracking. The ownership network's copies are also
+low-passed (players and ball, about 0.7 Hz), as automatic tracking is. Every step is seeded and
+deterministic on CPU, and each training script prints whether the
 model it writes is byte-identical to the shipped one. 
 
 1. Download the 14 DFL files into `nootropia/outputs/ext/dfl/` (or point `DFL_DIR` at them), keeping
@@ -63,6 +65,7 @@ model it writes is byte-identical to the shipped one.
    ```bash
    python nootropia/training/build_benchmark.py            # 7 matches x 3 noise seeds, about 50 min and 6 GB
    python nootropia/training/build_benchmark.py --boxdead  # the dead-ball model's copies (keeper holds), about 50 min
+   python nootropia/training/build_benchmark.py --lowpass  # the ownership model's copies (low-passed), about 50 min
    python nootropia/training/train_ballnet.py              # 7 leave-one-out nets and the full net, about 20-35 min each
    python nootropia/training/train_dead.py                 # about 20 min
    python nootropia/training/train_players_dead.py         # about 20 min

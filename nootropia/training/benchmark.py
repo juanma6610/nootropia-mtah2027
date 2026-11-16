@@ -6,7 +6,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from .common import BENCHMARK_DIR, CACHE_DIR, LOO_DIR, NOISE_SEEDS, _game_info, boxdead_dir, noise_dir
+from .common import BENCHMARK_DIR, CACHE_DIR, LOO_DIR, NOISE_SEEDS, _game_info, boxdead_dir, lowpass_dir
 from possession import dead, ownership
 from possession.loaders import _cached
 from possession.features import FEATURES_VERSION, tracking_features
@@ -147,11 +147,10 @@ def _benchmark_pairs(game, target, bench_dir=BENCHMARK_DIR):
 
 def train_dirs(target, noise_seeds=NOISE_SEEDS):
     """[base, copy per noise seed]: the benchmark builds a BiGRU trains on. The dead-ball one trains on its own copies
-    (boxdead_dir(): keeper holds and box stoppages hidden, build_benchmark.py --boxdead), the ownership one on the plain
-    ones (build_benchmark.py)."""
-    if target == "dead":
-        return [boxdead_dir(0)] + [boxdead_dir(s) for s in noise_seeds]
-    return [BENCHMARK_DIR] + [noise_dir(s) for s in noise_seeds]
+    (boxdead_dir(): keeper holds and box stoppages hidden, build_benchmark.py --boxdead), the ownership one on its own
+    too (lowpass_dir(): players and ball low-passed like BAR-ATH's tracker output, build_benchmark.py --lowpass)."""
+    which = boxdead_dir if target == "dead" else lowpass_dir
+    return [which(0)] + [which(s) for s in noise_seeds]
 
 
 def training_pairs(games, held=None, data=None, target="home", noise_seeds=NOISE_SEEDS):

@@ -1,0 +1,22 @@
+{
+  "ball_missing": 0.4069,
+  "ball_gap_mean_s": 17.32,
+  "ball_crowd_weight": 0.6,
+  "ball_fast_weight": 1.0,
+  "ball_dead_odds_ratio": 7.31,
+  "ball_out_tracked": 0.0249,
+  "ball_jitter_m": 0.25,
+  "ball_jitter_tau_s": 0.4,
+  "ball_smooth_frames": 2,
+  "tracklet_mean_s": 67.7,
+  "player_gap_mean_s": 5.0,
+  "occlusion_weight": 3.0,
+  "team_error": 0.02,
+  "player_jitter_m": 0.15,
+  "player_jitter_tau_s": 1.0,
+  "player_smooth_frames": 2,
+  "seed": 0,
+  "ball_lowpass_hz": 0.75,
+  "player_lowpass_hz": 0.8,
+  "lowpass_order": 6
+}

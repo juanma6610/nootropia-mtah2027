@@ -5,8 +5,11 @@ The 7 DFL open-data matches (Bassek et al. 2025, CC-BY 4.0) degraded to look lik
 outputs/benchmark (seed 0), outputs/benchmark_s1 and outputs/benchmark_s2. --boxdead builds the dead-ball BiGRU's
 copies instead, with noise_profile_boxdead.json (noise_profile.json plus faster re-finding in play, the ball hidden in
 the keeper's hands with each hold slowed to 3-20 s, and through 80% of the stoppages that start in a box):
-outputs/benchmark_boxdead, _s1, _s2 (~1.5 h). The plain build is needed either way (benchmark_games() reads its
-manifest). DIR (default common.DFL_DIR) holds, per
+outputs/benchmark_boxdead, _s1, _s2 (~1.5 h). --lowpass builds the ownership BiGRU's copies, with
+noise_profile_lp.json, _lp_s1.json, _lp_s2.json (noise_profile.json plus a zero-phase Butterworth low-pass of order 6 on
+the players and the ball: ball 0.65 / 0.58 / 0.75 Hz, players 0.70 / 0.62 / 0.80 Hz for noise seeds 0 / 1 / 2, as
+BAR-ATH's tracker output has almost no motion above 0.7 Hz): outputs/benchmark_lp, _s1, _s2 (~50 min). The plain build
+is needed either way (benchmark_games() reads its manifest, ballnet trains on it). DIR (default common.DFL_DIR) holds, per
 match, DFL_02_01_matchinformation_*_DFL-MAT-<id>.xml and DFL_04_03_positions_raw_observed_*_DFL-MAT-<id>.xml.
 Seeded: the same files give the same copies. ~10 GB of memory while a match loads.
 """
@@ -38,11 +41,15 @@ if __name__ == "__main__":
     parser.add_argument("--dfl-dir", default=common.DFL_DIR, help="the DFL open-data XML files")
     parser.add_argument("--seeds", type=int, nargs="+", default=[0] + list(common.NOISE_SEEDS), help="noise seeds to build")
     parser.add_argument("--boxdead", action="store_true", help="the dead-ball BiGRU's copies (noise_profile_boxdead.json)")
+    parser.add_argument("--lowpass", action="store_true", help="the ownership BiGRU's copies (noise_profile_lp*.json)")
     args = parser.parse_args()
     sources = dfl_sources(args.dfl_dir)
     for seed in args.seeds:
-        out = common.boxdead_dir(seed) if args.boxdead else (common.BENCHMARK_DIR if seed == 0 else common.noise_dir(seed))
-        profile = "noise_profile_boxdead.json" if args.boxdead else "noise_profile.json"
+        if args.lowpass:
+            out, profile = common.lowpass_dir(seed), "noise_profile_lp{}.json".format("" if seed == 0 else "_s{}".format(seed))
+        else:
+            out = common.boxdead_dir(seed) if args.boxdead else (common.BENCHMARK_DIR if seed == 0 else common.noise_dir(seed))
+            profile = "noise_profile_boxdead.json" if args.boxdead else "noise_profile.json"
         make_benchmark.build(argparse.Namespace(sources=sources, profile=os.path.join(HERE, profile),
                                                 out=out, seed=seed, dfl_min_spell_frames=0,
                                                 metrica_dir=str(make_benchmark.OUTPUTS / "ext" / "sample-data")))
