@@ -1,0 +1,36 @@
+{
+  "model_file": "ballnet.pt",
+  "sha256_12": "316b0d1115c2",
+  "train_command": "python nootropia/training/train_ballnet.py",
+  "config": {
+    "d": 48,
+    "heads": 4,
+    "hidden": 64,
+    "window": 50,
+    "stride": 50,
+    "epochs": 20,
+    "batch": 32,
+    "lr": 0.001,
+    "seed": 0,
+    "w_ball": 1.0,
+    "w_team": 1.0,
+    "w_ptr": 0.5
+  },
+  "threads": 6,
+  "noise_seeds": [
+    1,
+    2
+  ],
+  "frozen_copies": true,
+  "benchmark_build": {
+    "DFL-J03WMX": "dc83a461",
+    "DFL-J03WN1": "b5a9386e",
+    "DFL-J03WOH": "5906cef1",
+    "DFL-J03WOY": "3c54cd91",
+    "DFL-J03WPY": "bd6e5957",
+    "DFL-J03WQQ": "fb9115b1",
+    "DFL-J03WR9": "422b7da8"
+  },
+  "date": "2026-11-03",
+  "resaved": "2026-11-09: the 2026-11-03 weights, unchanged, saved as ballnet.pt (they shipped as a copy of net_ALL.pt; torch.save names the archive folder after the file, so the bytes differed)"
+}

@@ -1,0 +1,16 @@
+# The match data is licensed for the competition only and must never be committed.
+data/
+docs/
+# What a run writes: the submission file and the parsed-match caches.
+outputs/
+*.csv
+__pycache__/
+.venv/
+# LaTeX build files of docs/
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

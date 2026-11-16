@@ -1,0 +1,3 @@
+# What a run writes: the submission CSV and the parsed-match caches. Neither belongs in a public repository.
+outputs/
+__pycache__/

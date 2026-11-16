@@ -1,0 +1,28 @@
+{
+  "ball_missing": 0.4069,
+  "ball_out_tracked": 0.0249,
+  "ball_gap_mean_s": 17.32,
+  "tracklet_mean_s": 67.7,
+  "player_gap_mean_s": 5.0,
+  "ball_dead_odds_ratio": 7.31,
+  "_measured": {
+    "public_ball_missing_dead": 0.3363,
+    "public_ball_missing_alive": 0.0648,
+    "mean_tracked_objects": 20.49,
+    "slots": 46,
+    "ball_gap_median_s": 10.72,
+    "ball_gap_p90_s": 34.18,
+    "tracklet_median_s": 13.6,
+    "player_wobble_m": 0.0014,
+    "ball_wobble_m": 0.0091
+  },
+  "ball_gap_alive_mean_s": 5.0,
+  "keeper_hold": 1,
+  "keeper_reacquire_mean_s": 6.0,
+  "keeper_stretch_s": [
+    3,
+    20
+  ],
+  "box_stop_hide": 0.8,
+  "box_stop_lead_s": 1.0
+}

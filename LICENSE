@@ -1,0 +1,38 @@
+SCOPE OF THIS LICENCE
+---------------------
+
+The MIT Licence below covers Team Nootropia's work in this repository: everything in nootropia/
+(source code, documentation and the trained models in nootropia/models/), docs/ and README.md.
+
+It does NOT cover:
+
+- games.py, evaluation/possession_metrics.py and starter/, copied unchanged from Metrica Sports'
+  challenge repository and licensed by them under their own MIT licence: see LICENSE-metrica;
+- the match data of the competition, which is not in this repository and is licensed for the
+  competition only;
+- the DFL/IDSSE open data the models were trained on (Bassek et al. 2025, CC-BY 4.0), which is not
+  in this repository either.
+
+---
+
+MIT License
+
+Copyright (c) 2026 Team Nootropia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

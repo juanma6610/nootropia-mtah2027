@@ -1,0 +1,67 @@
+{
+  "model_file": "dead_sequence.pt",
+  "sha256_12": "5d4caa26d84c",
+  "train_command": "python nootropia/training/train_dead.py",
+  "seed": 0,
+  "noise_seeds": [
+    1,
+    2
+  ],
+  "config": {
+    "step": 5,
+    "window": 50,
+    "stride": 25,
+    "hidden": 64,
+    "layers": 2,
+    "epochs": 6,
+    "batch": 64,
+    "learning_rate": 0.001,
+    "seed": 0,
+    "target": "dead"
+  },
+  "train_dirs": [
+    "benchmark_boxdead",
+    "benchmark_boxdead_s1",
+    "benchmark_boxdead_s2"
+  ],
+  "train_build": {
+    "benchmark_boxdead": {
+      "DFL-J03WMX": "87fe2e1d",
+      "DFL-J03WN1": "8bade2a6",
+      "DFL-J03WOH": "0ef9cb28",
+      "DFL-J03WOY": "7e13fda7",
+      "DFL-J03WPY": "163ecd6a",
+      "DFL-J03WQQ": "12fc24e2",
+      "DFL-J03WR9": "ce034ecd"
+    },
+    "benchmark_boxdead_s1": {
+      "DFL-J03WMX": "81a7ed59",
+      "DFL-J03WN1": "a42a3dd2",
+      "DFL-J03WOH": "b0646c73",
+      "DFL-J03WOY": "d27bc3c8",
+      "DFL-J03WPY": "80ef4919",
+      "DFL-J03WQQ": "2130d365",
+      "DFL-J03WR9": "9c92a3b5"
+    },
+    "benchmark_boxdead_s2": {
+      "DFL-J03WMX": "d3eb689a",
+      "DFL-J03WN1": "0397f828",
+      "DFL-J03WOH": "b928afa8",
+      "DFL-J03WOY": "94e2723b",
+      "DFL-J03WPY": "415d47fe",
+      "DFL-J03WQQ": "28c64e57",
+      "DFL-J03WR9": "2a046cd2"
+    }
+  },
+  "benchmark_build": {
+    "DFL-J03WMX": "dc83a461",
+    "DFL-J03WN1": "b5a9386e",
+    "DFL-J03WOH": "5906cef1",
+    "DFL-J03WOY": "3c54cd91",
+    "DFL-J03WPY": "bd6e5957",
+    "DFL-J03WQQ": "fb9115b1",
+    "DFL-J03WR9": "422b7da8"
+  },
+  "date": "2026-11-10",
+  "decoder_tuned_on": "f7ae3773eab2"
+}

@@ -1,0 +1,33 @@
+{
+  "model_file": "sequence.pt",
+  "sha256_12": "78dd53c2c507",
+  "train_command": "python nootropia/training/train_ownership.py",
+  "seed": 0,
+  "noise_seeds": [
+    1,
+    2
+  ],
+  "benchmark_build": {
+    "DFL-J03WMX": "dc83a461",
+    "DFL-J03WN1": "b5a9386e",
+    "DFL-J03WOH": "5906cef1",
+    "DFL-J03WOY": "3c54cd91",
+    "DFL-J03WPY": "bd6e5957",
+    "DFL-J03WQQ": "fb9115b1",
+    "DFL-J03WR9": "422b7da8"
+  },
+  "config": {
+    "step": 5,
+    "window": 50,
+    "stride": 25,
+    "hidden": 64,
+    "layers": 2,
+    "epochs": 6,
+    "batch": 64,
+    "learning_rate": 0.001,
+    "seed": 0,
+    "target": "home"
+  },
+  "decoder_tuned_on": "78dd53c2c507",
+  "date": "2026-11-03"
+}
